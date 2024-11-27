@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}
+    Todo
+{% endblock %}
+{% block content %}
+    <div id="formDiv">
+        {% if user.is_authenticated %}
+            <div>
+                <p>{{ user.username }}, <a href="{% url 'accounts:logout' %}">Logout</a></p>
+            </div>
+        {% endif %}
+        <h1>ToDo List!</h1>
+        <form id="addTodoForm" method="post" action="{% url 'todo:create' %}">
+            {% csrf_token %}
+            <input type="text" name="title" id="todoText" placeholder="Add your new ToDo...">
+            <input type="submit" name="submit" id="todoAdd" value="+">
+        </form>
+        <ul id="todoUl">
+            {% for task in tasks %}
+                <form action="{% url 'todo:status' task.id %}" method="post">
+                    {% csrf_token %}
+                    {% if task.status == 'done' %}
+                        <li style="text-decoration: line-through">
+                            {{ task.title }}
+                            <a style="display: inline-block; text-align: center; padding: 7px;" class="delete-botton" href="{% url 'todo:delete' task.id %}" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a style="display: inline-block; text-align: center; padding: 7px;" class="edit-botton" href="{% url 'todo:update' task.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a type="submit" style="display: inline-block; text-align: center; padding: 7px;" class="done-botton" href="{% url 'todo:status' task.id %}"><i class="fa fa-repeat"
+                                                                                             aria-hidden="true"></i></a>
+                        </li>
+                    {% else %}
+                        <li>
+                            {{ task.title }}
+                            <a style="display: inline-block; text-align: center; padding: 7px;" class="delete-botton" href="{% url 'todo:delete' task.id %}" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a style="display: inline-block; text-align: center; padding: 7px;" class="edit-botton" href="{% url 'todo:update' task.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a type="submit" style="display: inline-block; text-align: center; padding: 7px;" class="done-botton" href="{% url 'todo:status' task.id %}"><i class="fa fa-check"
+                                                                                             aria-hidden="true"></i></a>
+                        </li>
+                    {% endif %}
+                </form>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

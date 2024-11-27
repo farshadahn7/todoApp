@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}
+    Todo
+{% endblock %}
+{% block content %}
+    <div id="formDiv">
+        <h1>ToDo List!</h1>
+        <form id="addTodoForm" method="post" action="">
+            {% csrf_token %}
+            <input type="text" name="title" id="todoText" value="{{ task.title }}">
+            <input type="submit" name="submit" id="todoAdd" value="+">
+        </form>
+    </div>
+
+{% endblock %}
