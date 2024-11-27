@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Installed App
+    'rest_framework',
+    'django_filters',
+
     # Local app
     'accounts.apps.AccountsConfig',
     'todo.apps.TodoConfig',
