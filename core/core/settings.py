@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Installed App
     'rest_framework',
     'django_filters',
+    'drf_yasg',
 
     # Local app
     'accounts.apps.AccountsConfig',
